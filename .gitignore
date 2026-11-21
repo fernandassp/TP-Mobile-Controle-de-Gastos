@@ -26,9 +26,25 @@ npm-debug.*
 yarn-debug.*
 yarn-error.*
 
-# macOS
+# logs
+*.log
+
+# OS / IDE
 .DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+
+# keys / credentials
 *.pem
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Firebase / Google service files
+google-services.json
+GoogleService-Info.plist
+serviceAccountKey*.json
 
 # local env files
 .env*.local
