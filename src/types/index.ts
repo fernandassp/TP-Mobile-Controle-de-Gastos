@@ -14,6 +14,32 @@ export interface Categoria {
   cor: string;
   icone: IconName;
   padrao: boolean;
+  excluido?: boolean;
+}
+
+export type MesReferencia = string;
+
+export interface Orcamento {
+  id: string;
+  categoriaId: string;
+  mesReferencia: MesReferencia;
+  valorLimite: number;
+  percentualAlerta: number;
+  excluido?: boolean;
+}
+
+export type StatusOrcamento = 'ok' | 'atencao' | 'estourado';
+
+export type NivelAlerta = 'alerta' | 'limite';
+
+export interface Alerta {
+  id: string;
+  orcamentoId: string;
+  nivel: NivelAlerta;
+  dataHora: string;
+  percentualAtingido: number;
+  mensagem: string;
+  lido: boolean;
 }
 
 /** Entidade LANCAMENTO do DER (valor em reais; data em ISO 8601). */

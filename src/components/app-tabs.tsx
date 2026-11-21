@@ -27,6 +27,16 @@ export default function AppTabs() {
           renderingMode="template"
         />
       </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="orcamentos">
+        <NativeTabs.Trigger.Label>Orçamentos</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf="chart.pie" md="savings" />
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="categorias">
+        <NativeTabs.Trigger.Label>Categorias</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf="square.grid.2x2" md="category" />
+      </NativeTabs.Trigger>
     </NativeTabs>
   );
 }
