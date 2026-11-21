@@ -1,32 +1,41 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, useColorScheme } from 'react-native';
+import 'react-native-get-random-values';
+import { Alert, Platform } from 'react-native';
+import { useRouter } from 'expo-router';
 import { useAuth } from '../context/AuthContext';
-import { lightColors, darkColors } from '../theme/colors';
+import HomeScreen from '../screens/HomeScreen';
 
-export default function HomePlaceholder() {
+export default function Index() {
+  const router = useRouter();
   const { user, signOut } = useAuth();
-  const scheme = useColorScheme();
-  const colors = scheme === 'dark' ? darkColors : lightColors;
+
+  function handleProfilePress() {
+    if (Platform.OS === 'web') {
+      const confirmed = window.confirm(`Conta: ${user?.email}\n\nDeseja sair da conta?`);
+      if (confirmed) signOut();
+      return;
+    }
+
+    Alert.alert(
+      user?.name || 'Minha conta',
+      user?.email || 'Deseja encerrar sua sessão?',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Sair da conta',
+          style: 'destructive',
+          onPress: () => signOut(),
+        },
+      ],
+    );
+  }
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.bg }]}>
-      <Text style={[styles.title, { color: colors.title }]}>Olá, {user?.name}</Text>
-      <Text style={[styles.uid, { color: colors.textSecondary }]}>UID: {user?.uid}</Text>
-
-      <TouchableOpacity
-        style={[styles.logoutBtn, { backgroundColor: colors.danger }]}
-        onPress={signOut}
-      >
-        <Text style={styles.logoutText}>Sair da conta (Logout)</Text>
-      </TouchableOpacity>
-    </View>
+    <HomeScreen
+      userName={user?.name || 'Você'}
+      onPressProfile={handleProfilePress}
+      onPressSeeAll={() => router.navigate('/lancamentos')}
+      onPressBudgets={() => router.navigate('/orcamentos')}
+      onPressAlert={() => router.navigate('/orcamentos')}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24 },
-  title: { fontSize: 22, fontWeight: '700', marginBottom: 8 },
-  uid: { fontSize: 13, marginBottom: 24 },
-  logoutBtn: { paddingHorizontal: 20, paddingVertical: 12, borderRadius: 10 },
-  logoutText: { color: '#FFFFFF', fontWeight: '600' },
-});
