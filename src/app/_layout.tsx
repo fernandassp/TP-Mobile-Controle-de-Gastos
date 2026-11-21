@@ -1,28 +1,30 @@
 import React, { useEffect } from 'react';
-import { View, ActivityIndicator, useColorScheme } from 'react-native';
-import { Slot, useRouter, useSegments } from 'expo-router';
+import { View, ActivityIndicator } from 'react-native';
+import { Slot, useRouter, useSegments, Href } from 'expo-router';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider, useAuth } from '../context/AuthContext';
-import { lightColors, darkColors } from '../theme/colors';
+import { ToastProvider } from '../components';
+import { useTheme } from '../theme';
 
 function AuthGuard() {
   const { user, loading, hasCompletedOnboarding } = useAuth();
   const segments = useSegments();
   const router = useRouter();
-  const scheme = useColorScheme();
-  const colors = scheme === 'dark' ? darkColors : lightColors;
+  const { colors } = useTheme();
 
   useEffect(() => {
     if (loading) return;
 
-    const inAuthGroup = segments[0] === '(auth)';
-    const inOnboardingGroup = segments[0] === '(onboarding)';
+    const firstSegment = segments[0] as string | undefined;
+    const inAuthGroup = firstSegment === '(auth)';
+    const inOnboardingGroup = firstSegment === '(onboarding)';
 
     if (!user && !inAuthGroup) {
-      router.replace('/(auth)/welcome');
+      router.replace('/(auth)/welcome' as Href);
     } else if (user && !hasCompletedOnboarding && !inOnboardingGroup) {
-      router.replace('/(onboarding)/initial-balance');
+      router.replace('/(onboarding)/initial-balance' as Href);
     } else if (user && hasCompletedOnboarding && (inAuthGroup || inOnboardingGroup)) {
-      router.replace('/');
+      router.replace('/' as Href);
     }
   }, [user, loading, hasCompletedOnboarding, segments]);
 
@@ -39,8 +41,12 @@ function AuthGuard() {
 
 export default function RootLayout() {
   return (
-    <AuthProvider>
-      <AuthGuard />
-    </AuthProvider>
+    <SafeAreaProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <AuthGuard />
+        </AuthProvider>
+      </ToastProvider>
+    </SafeAreaProvider>
   );
 }
