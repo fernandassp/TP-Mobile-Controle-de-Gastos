@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppText, Button, Chip, ContentContainer } from '../../components';
@@ -30,11 +30,13 @@ export function FiltersSheet({ visible, filtros, categorias, onApply, onClose }:
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const [rascunho, setRascunho] = useState<Filtros>(filtros);
+  const [estavaAberto, setEstavaAberto] = useState(visible);
 
   // Sempre que abrir, começa a partir dos filtros atuais.
-  useEffect(() => {
+  if (visible !== estavaAberto) {
+    setEstavaAberto(visible);
     if (visible) setRascunho(filtros);
-  }, [visible, filtros]);
+  }
 
   // Só mostra categorias compatíveis com o tipo escolhido na tela.
   const disponiveis = categorias.filter((c) => filtros.tipo === 'todos' || c.tipo === filtros.tipo);

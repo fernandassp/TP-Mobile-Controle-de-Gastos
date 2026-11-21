@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppText, Button, Card, ContentContainer, TransactionRow } from '../components';
 import { DonutChart } from '../features/home/DonutChart';
@@ -11,7 +11,6 @@ import { aplicarFiltros, FILTROS_PADRAO, totalizar } from '../features/transacti
 import { useLancamentos } from '../hooks/useLancamentos';
 import { fonts, useTheme } from '../theme';
 import { capitalize, formatBRL, formatTime, monthName } from '../utils/format';
-import { Platform } from 'react-native';
 
 interface HomeScreenProps {
   /** Nome exibido na saudação. */

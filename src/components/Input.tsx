@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState, type ComponentRef } from 'react';
 import { StyleSheet, TextInput, View, type StyleProp, type TextInputProps, type ViewStyle } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { fonts, radius, useTheme } from '../theme';
@@ -15,7 +15,7 @@ export interface InputProps extends TextInputProps {
 }
 
 /** Campo de texto de 52 px com rótulo, ícone opcional e mensagem de erro. */
-export const Input = forwardRef<TextInput, InputProps>(function Input(
+export const Input = forwardRef<ComponentRef<typeof TextInput>, InputProps>(function Input(
   { label, hideLabel, error, leftIcon, containerStyle, onFocus, onBlur, style, ...rest },
   ref,
 ) {

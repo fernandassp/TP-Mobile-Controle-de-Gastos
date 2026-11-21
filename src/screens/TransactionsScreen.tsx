@@ -1,8 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useMemo, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, Platform, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppText, Card, Chip, ContentContainer, EmptyState, Input, TransactionRow } from '../components';
+import { AppText, Card, Chip, EmptyState, Input, TransactionRow } from '../components';
 import { FiltersSheet } from '../features/transactions/FiltersSheet';
 import {
   agruparPorDia,
@@ -16,7 +16,6 @@ import {
 import { useLancamentos } from '../hooks/useLancamentos';
 import { useTheme } from '../theme';
 import { capitalize, formatBRL, formatTime, intervaloLabel } from '../utils/format';
-import { Platform } from 'react-native';
 
 interface TransactionsScreenProps {
   /** Abre a tela de edição (feita por outro integrante). */
@@ -131,7 +130,7 @@ export default function TransactionsScreen({ onPressTransaction, onPressNewTrans
         onAction={limparFiltros}
       />
     </Card>
-  ) : null;
+  ) : undefined;
 
   const renderGrupo = ({ item }: { item: GrupoDeDia }) => (
     <View style={styles.group}>

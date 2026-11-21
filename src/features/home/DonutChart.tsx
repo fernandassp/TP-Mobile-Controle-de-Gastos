@@ -57,5 +57,5 @@ export function DonutChart({ slices, trackColor, size = 120, strokeWidth = 18, c
 }
 
 const styles = StyleSheet.create({
-  center: { ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center' },
+  center: { ...StyleSheet.absoluteFill, alignItems: 'center', justifyContent: 'center' },
 });

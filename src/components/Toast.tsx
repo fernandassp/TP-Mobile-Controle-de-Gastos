@@ -42,7 +42,7 @@ export function ToastProvider({ children, bottomOffset = 96 }: { children: React
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const [toast, setToast] = useState<ToastOptions | null>(null);
-  const progress = useRef(new Animated.Value(0)).current;
+  const [progress] = useState(() => new Animated.Value(0));
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const hide = useCallback(() => {
