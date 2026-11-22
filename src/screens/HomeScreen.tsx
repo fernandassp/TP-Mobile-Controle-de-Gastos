@@ -11,6 +11,7 @@ import { aplicarFiltros, FILTROS_PADRAO, totalizar } from '../features/transacti
 import { useLancamentos } from '../hooks/useLancamentos';
 import { fonts, useTheme } from '../theme';
 import { capitalize, formatBRL, formatTime, monthName } from '../utils/format';
+import { NetworkStatusIndicator } from '../features/sync/components/NetworkStatusIndicator';
 
 interface HomeScreenProps {
   /** Nome exibido na saudação. */
@@ -78,6 +79,7 @@ export default function HomeScreen({
               <AppText variant="body" color="#C9EBE4">
                 Olá, <AppText variant="bodyStrong" color="#FFFFFF">{userName}</AppText>
               </AppText>
+              <NetworkStatusIndicator />
               <Pressable
                 onPress={onPressProfile}
                 accessibilityRole="button"
