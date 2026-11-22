@@ -1,11 +1,5 @@
-
 import { View, Text, StyleSheet } from 'react-native';
-
-type SyncStatus = 'synced' | 'syncing' | 'offline' | 'error';
-
-type Props = {
-  status: SyncStatus;
-};
+import { useSyncStatus } from '../hooks/useSyncStatus';
 
 const statusConfig = {
   synced: {
@@ -30,7 +24,8 @@ const statusConfig = {
   },
 };
 
-export function SyncStatusIndicator({ status }: Props) {
+export function SyncStatusIndicator() {
+  const status = useSyncStatus();
   const current = statusConfig[status];
 
   return (
